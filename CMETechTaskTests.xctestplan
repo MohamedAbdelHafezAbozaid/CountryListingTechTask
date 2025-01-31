@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "3B56FE7F-9783-49A5-8D94-D3BBB6D130CB",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : false,
+      "target" : {
+        "containerPath" : "container:CMETechTask.xcodeproj",
+        "identifier" : "CE3C4AC92D4B7E0400615A14",
+        "name" : "CMETechTaskTests"
+      }
+    }
+  ],
+  "version" : 1
+}
