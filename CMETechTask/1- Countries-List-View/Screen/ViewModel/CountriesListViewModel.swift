@@ -130,12 +130,21 @@ public final class CountriesListViewModel: BaseViewModel, CountriesListFlowProto
         case .fetchCountries:
             fetchAllCountries()
         case let .addToFav(country):
-            let saved = countryLocalRepo.TappedCountry(country: country, state: .save)
-            output.FavCount = saved.count
+            FavCountChecker(country)
         case .toFavScreen:
             router.openFavouritesScreen()
         case .updateCount:
             output.FavCount = countryLocalRepo.savedCountries.count
+        }
+    }
+    
+    private func FavCountChecker(_ country: Country) {
+        if countryLocalRepo.savedCountries.count == 5 {
+            output.dataStatus = .success(.loading)
+            output.dataStatus = .failure(CustomError.maxAmountReached)
+        } else {
+            let saved = countryLocalRepo.TappedCountry(country: country, state: .save)
+            output.FavCount = saved.count
         }
     }
     

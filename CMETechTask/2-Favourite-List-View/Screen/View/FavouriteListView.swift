@@ -22,14 +22,20 @@ public struct FavouriteListView: View {
         VStack {
             List {
                 ForEach(output.countries, id: \.name) { item in
-                    Text(item.name)
-                        .onTapGesture {
-                            input
-                                .ipActions
-                                .send(
-                                    .toDetails(item)
-                                )
-                        }
+                    Button(action: {
+                        input
+                            .ipActions
+                            .send(
+                                .toDetails(item)
+                            )
+                    }) {
+                        Text(item.name)
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(Color.blue.opacity(0.1))
+                            .cornerRadius(8) 
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
                 .onDelete(perform: { offsets in
                     input
@@ -40,13 +46,15 @@ public struct FavouriteListView: View {
                 })
             }
             .toolbar {
-                EditButton() 
+                EditButton()
             }
         }
         .commonIOModifiers(vmOutput: output, viewDidLoad: {
             input
                 .ipActions
                 .send(.fetchSavedCountries)
+        }, errorCallBackAction: {
+            
         })
     }
 }

@@ -12,7 +12,6 @@ public extension View {
     @MainActor
     public func commonIOModifiers(
         vmOutput: ViewModelOutput,
-        showErrorAlert: Bool = true,
         viewonAppear onaction: @escaping () -> Void = { },
         viewDidLoad action: @escaping () -> Void = { },
         viewDidDisAppear disaction: @escaping () -> Void = { },

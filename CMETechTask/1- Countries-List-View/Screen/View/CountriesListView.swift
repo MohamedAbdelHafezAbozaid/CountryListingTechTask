@@ -60,14 +60,20 @@ public struct CountriesListView: View {
             
             List {
                 ForEach(output.presentableCountries, id: \.name) { item in
-                    Text(item.name)
-                        .onTapGesture {
-                            input
-                                .ipActions
-                                .send(
-                                    .addToFav(item)
-                                )
-                        }
+                    Button(action: {
+                        input
+                            .ipActions
+                            .send(
+                                .addToFav(item)
+                            )
+                    }) {
+                        Text(item.name)
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(Color.blue.opacity(0.1))
+                            .cornerRadius(8)
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
             }
         }

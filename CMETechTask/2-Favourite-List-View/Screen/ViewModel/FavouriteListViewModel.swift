@@ -23,6 +23,7 @@ extension FavouriteListViewModel {
 extension FavouriteListViewModel {
     public class Output: ViewModelOutput {
         @Published public var countries: [Country] = []
+        @Published public var showError: Bool = false
     }
 }
 
@@ -82,6 +83,15 @@ public final class FavouriteListViewModel: BaseViewModel, @preconcurrency Favour
     }
     
     private func deleteFromFavourite(at offsets: IndexSet) {
+        if output.countries.count == 1 {
+            output.dataStatus = .success(.loading)
+            output.dataStatus = .failure(CustomError.emptyFav)
+        } else {
+            delete(at: offsets)
+        }
+    }
+    
+    private func delete(at offsets: IndexSet) {
         for index in offsets {
             let item = output.countries[index]
             output.countries = countryLocalRepo.TappedCountry(country: item, state: .delete)
